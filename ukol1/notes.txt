@@ -1,0 +1,42 @@
+Jako prvni krok si prekopiruju soubor s daty do pracovni slozky.
+Nasledne si vyfiltruju do souboru jmena vsech generatoru a pocet 
+vysledku pro tento kazdy.
+
+v dalsim kroku vytvorim soubor pro kontrolu poctu znaku.
+ pri praci s daty si je napred predpripravim sadou prikazu.
+
+   extrakce dat pro     # odstraneni separatoru #  odstraneni
+      generator         #  a jmena generatoru   #     CR
+             
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' 
+
+
+Toto provedu pro kazdou praci s daty. Je mozne to udelat i pouze 
+jednou a vytvorit si docasny soubor pro kazdy generator jen 
+s vycstenymi daty ja sel cestou pipy a jen praci s daty.
+
+Pri hledani min delky pomoci regex najdu stringy s alespon 8 znaky
+Pri hledani lower case hledam vyskyt alespon jednoho znaku z rzsahu 
+abecady stejne tak pro velka pismena a cisla.
+
+pro hledani special character jesem pouzil predefinovanou skupinu 
+[:punct:] pro special charactery.
+
+pro kontrolu unikatnosti prvnich a poslednich tri jsem vypsal tyto
+seradil aby shodne bylu u sebe a pote pres uniqe vypsal pocet vyskytu
+kazdeho retezce. nasledne pres regularni vyraz vytridil jen ty vyrazy
+ktere obsahuji pouze cislo 1 a vypsal jejich pocet.
+
+vsechny tyto postupy jsem vypsal do separatnich "CSV" souboru ktere 
+nasledne spojim do jednoho CSV ve kterem nakonec podle vysledku pridam 
+manualne posledni sloupec s hodnotou score.
+#i tento krok by se dal udelat prikazem bohuel nevysl mi na to cas.
+
+z vysledneho csv souboru exportuji pres JQ datovou cast jsonu a nasledne
+do nej pridam hlavicku se jmenem casem a vytezem. 
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+
+#vyrobim kopii souboru pwlist.csv do pracovniho adresare a pustim po sobe nasledujici commandy
+
+echo "type" > out.csv
+cut -d, -f1 pwlist.csv | sort | uniq -c | sed 's/^ *//'| cut -d' ' -f2 >> out.csv 
+echo "total_count" > total.csv
+cut -d, -f1 pwlist.csv | sort | uniq -c | sed 's/^ *//'| cut -d' ' -f1 >> total.csv
+
+
+echo "min_length" > min_length.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '^.\{8\}' -c >> min_length.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '^.\{8\}' -c >> min_length.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '^.\{8\}' -c >> min_length.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '^.\{8\}' -c >> min_length.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '^.\{8\}' -c >> min_length.csv
+
+
+echo "min_lower" > min_lower.csv 
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '[a-z]\{1\}' -c >> min_lower.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '[a-z]\{1\}' -c >> min_lower.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '[a-z]\{1\}' -c >> min_lower.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '[a-z]\{1\}' -c >> min_lower.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '[a-z]\{1\}' -c >> min_lower.csv
+
+
+echo "min_upper" > min_upper.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '[A-Z]\{1\}' -c >> min_upper.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '[A-Z]\{1\}' -c >> min_upper.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '[A-Z]\{1\}' -c >> min_upper.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '[A-Z]\{1\}' -c >> min_upper.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '[A-Z]\{1\}' -c >> min_upper.csv
+
+
+echo "min_digit" > min_digit.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '[0-9]\{1\}' -c >> min_digit.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '[0-9]\{1\}' -c >> min_digit.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '[0-9]\{1\}' -c >> min_digit.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '[0-9]\{1\}' -c >> min_digit.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '[0-9]\{1\}' -c >> min_digit.csv
+
+
+echo "min_special" > min_special.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '[[:punct:]]' -c >> min_special.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '[[:punct:]]' -c >> min_special.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '[[:punct:]]' -c >> min_special.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '[[:punct:]]' -c >> min_special.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '[[:punct:]]' -c >> min_special.csv
+
+
+echo "valid_prefix" > valid_prefix.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '^.\{3\}' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_prefix.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '^.\{3\}' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_prefix.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '^.\{3\}' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_prefix.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '^.\{3\}' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_prefix.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '^.\{3\}' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_prefix.csv
+
+
+
+echo "valid_suffix" > valid_suffix.csv
+grep '^Andoes' pwlist.csv | sed 's/^Andoes,//' | tr -d '\r' | grep '.\{3\}$' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c  >> valid_suffix.csv
+grep '^Cairo' pwlist.csv | sed 's/^Cairo,//' | tr -d '\r' | grep '.\{3\}$' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_suffix.csv
+grep '^HernsPW' pwlist.csv | sed 's/^HernsPW,//' | tr -d '\r' | grep '.\{3\}$' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_suffix.csv
+grep '^Orion1.15' pwlist.csv | sed 's/^Orion1.15,//' | tr -d '\r' | grep '.\{3\}$' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_suffix.csv
+grep '^PWmk' pwlist.csv | sed 's/PWmk,//' | tr -d '\r' | grep '.\{3\}$' -o | sort | uniq -c | grep '^[^0-9]*[1] ' -c >> valid_suffix.csv
+
+
+paste -d"," out.csv total.csv min_length.csv min_lower.csv min_upper.csv min_digit.csv min_special.csv valid_prefix.csv valid_suffix.csv > final.csv
+
+#pridam do csv souboru posledni sloupec s vysledky ktere vyctu z tabulky. 
+
+jq -R '{Data: [inputs | split(",") | {type: .[0], total_count: .[1], min_length: .[2], min_lower: .[3], min_upper: .[4], min_digit: .[5], min_special: .[6], valid_prefix: .[7], valid_suffix: .[8], score: .[9]}]}' < final.csv >out.json
+
+#nasledne upravim data v hlavicce jsonu > pridam jmeno cas a viteze
+
